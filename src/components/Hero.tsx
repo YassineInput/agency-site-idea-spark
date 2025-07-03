@@ -6,7 +6,7 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto text-center">
         <div className="mb-8">
           <img 
-            src="/lovable-uploads/8a59ef6b-dcf3-4b48-a4da-11877f475540.png" 
+            src="/lovable-uploads/5d8ebae5-14e6-404f-bb14-576f48f37daa.png" 
             alt="ZeroInputAI Logo" 
             className="w-32 h-32 mx-auto mb-6 rounded-full shadow-2xl"
           />
