@@ -311,29 +311,40 @@ const FreeAutomations = () => {
                 </div>
                 
                 <CardHeader className="relative z-10 text-center pt-8">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 group-hover:from-primary/30 group-hover:to-accent/30 transition-all duration-300">
+                  <div className="flex justify-center mb-6">
+                    <div className="p-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 group-hover:from-primary/30 group-hover:to-accent/30 transition-all duration-300 border border-primary/20">
                       <IconComponent className="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" />
                     </div>
                   </div>
-                  <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors duration-300 mb-3">
-                    {automation.title}
-                  </CardTitle>
-                  <CardDescription className="text-foreground/70 leading-relaxed">
-                    {automation.description}
-                  </CardDescription>
+                  
+                  {/* Title Frame */}
+                  <div className="bg-background/30 rounded-lg p-4 mb-4 border border-border/30">
+                    <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors duration-300">
+                      {automation.title}
+                    </CardTitle>
+                  </div>
+                  
+                  {/* Description Frame */}
+                  <div className="bg-card/30 rounded-lg p-4 border border-border/20">
+                    <CardDescription className="text-foreground/80 leading-relaxed">
+                      {automation.description}
+                    </CardDescription>
+                  </div>
                 </CardHeader>
                 
                 <CardContent className="relative z-10 pb-8">
                   <div className="space-y-4">
-                    {/* Features */}
-                    <div className="space-y-2">
-                      {automation.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center space-x-2 text-sm">
-                          <CheckCircle className="w-4 h-4 text-green-400" />
-                          <span className="text-foreground/80">{feature}</span>
-                        </div>
-                      ))}
+                    {/* Features Frame */}
+                    <div className="bg-muted/20 rounded-lg p-4 border border-border/30">
+                      <h4 className="text-sm font-semibold text-primary mb-3">Key Features:</h4>
+                      <div className="space-y-2">
+                        {automation.features.map((feature, idx) => (
+                          <div key={idx} className="flex items-center space-x-2 text-sm">
+                            <CheckCircle className="w-4 h-4 text-green-400" />
+                            <span className="text-foreground/80">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                     
                     {/* Demo Section */}
