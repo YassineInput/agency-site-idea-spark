@@ -106,7 +106,7 @@ const LeadCapture = () => {
             <CardTitle className="text-3xl text-primary mb-4 font-bold">
               🎁 Free Resources Package
             </CardTitle>
-            <CardDescription className="text-xl leading-relaxed">
+            <div className="text-xl leading-relaxed">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl">📋</span>
@@ -125,7 +125,7 @@ const LeadCapture = () => {
                   <span className="text-foreground/80">Beta Automation Setup</span>
                 </div>
               </div>
-            </CardDescription>
+            </div>
           </CardHeader>
           <CardContent className="relative z-10 p-8">
             <form onSubmit={handleSubmit} className="space-y-8">
