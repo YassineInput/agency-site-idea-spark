@@ -148,16 +148,19 @@ const FreeAutomations = () => {
   };
 
   const runDemo = (automationId: string, demoType: string) => {
-    setActiveDemo(automationId);
-    
-    // Simulate demo execution
-    setTimeout(() => {
-      toast({
-        title: "Demo Complete!",
-        description: "This is a preview of how the automation would work in your n8n instance.",
-      });
+    if (activeDemo === automationId) {
+      // If demo is already active, hide it
       setActiveDemo(null);
-    }, 2000);
+    } else {
+      // Show the demo
+      setActiveDemo(automationId);
+      
+      // Show a toast notification
+      toast({
+        title: "Demo Active!",
+        description: "This is a preview of how the automation would work in your n8n instance. Click Demo again to hide.",
+      });
+    }
   };
 
   const renderDemo = (automation: any) => {
@@ -340,12 +343,11 @@ const FreeAutomations = () => {
                     <div className="flex space-x-2 pt-4">
                       <Button
                         onClick={() => runDemo(automation.id, automation.demoType)}
-                        disabled={activeDemo === automation.id}
                         className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground"
                         size="sm"
                       >
                         <Play className="w-4 h-4 mr-2" />
-                        {activeDemo === automation.id ? 'Running...' : 'Demo'}
+                        {activeDemo === automation.id ? 'Hide' : 'Demo'}
                       </Button>
                       <Button
                         onClick={() => handleDownload(automation.id, automation.title)}
