@@ -460,12 +460,33 @@ const FreeAutomations = () => {
         
         {/* Bottom CTA */}
         <div className={`text-center mt-20 transition-all duration-1000 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '1.2s', animationFillMode: 'both' }}>
-          <p className="text-xl text-foreground/70 mb-6">Need custom automation for your specific business?</p>
-          <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full border border-primary/30 text-primary font-semibold text-lg hover:from-primary/30 hover:to-accent/30 transition-all duration-300 cursor-pointer group">
-            <span>Get Personalized Automation</span>
-            <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+          <p className="text-xl text-foreground/70 mb-6">Ready to get your free automation resources?</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              onClick={() => {
+                const element = document.getElementById('lead-capture-section');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-accent rounded-full text-primary-foreground font-semibold text-lg hover:from-accent hover:to-primary transition-all duration-300 group"
+            >
+              <span>Get Free Automation Resources</span>
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            <span className="text-foreground/50">or</span>
+            <button 
+              onClick={() => {
+                const element = document.getElementById('contact-section');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full border border-primary/30 text-primary font-semibold text-lg hover:from-primary/30 hover:to-accent/30 transition-all duration-300 group"
+            >
+              <span>Get Personalized Automation</span>
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
