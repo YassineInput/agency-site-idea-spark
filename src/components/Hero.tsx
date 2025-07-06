@@ -82,18 +82,26 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
                 <Button 
                   size="lg" 
+                  onClick={() => {
+                    const element = document.getElementById('free-automations-section');
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="group px-10 py-6 text-lg bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white font-medium rounded-2xl shadow-2xl shadow-primary/25 hover:shadow-primary/40 transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-1"
                 >
-                  <span className="relative z-10">Start Free Automation</span>
+                  <span className="relative z-10">Free Automations</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 </Button>
                 
                 <Button 
                   size="lg" 
                   variant="ghost"
+                  onClick={() => {
+                    const element = document.getElementById('contact-section');
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="group px-10 py-6 text-lg text-foreground hover:text-primary font-medium rounded-2xl border border-foreground/10 hover:border-primary/30 hover:bg-primary/5 transition-all duration-500"
                 >
-                  <span>View Case Studies</span>
+                  <span>Custom Quote</span>
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
