@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Briefcase, Zap, Target, Rocket, Mail, Smartphone } from "lucide-react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -90,21 +91,22 @@ const Contact = () => {
           </div>
           
           <CardHeader className="relative z-10 text-center pt-12">
-            <CardTitle className="text-3xl text-primary mb-4 font-bold">
-              💼 Custom Automation Quote
+            <CardTitle className="text-3xl text-primary mb-4 font-bold flex items-center gap-3">
+              <Briefcase className="w-8 h-8" />
+              Custom Automation Quote
             </CardTitle>
             <CardDescription className="text-xl">
               <div className="flex flex-wrap justify-center gap-8 text-foreground/80">
-                <div className="flex items-center space-x-2">
-                  <span className="text-2xl">🆓</span>
+                <div className="flex items-center space-x-3">
+                  <span className="text-lg font-bold text-green-500">FREE</span>
                   <span>Free consultation</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-2xl">⚡</span>
+                <div className="flex items-center space-x-3">
+                  <Zap className="w-5 h-5 text-primary" />
                   <span>24-hour response</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-2xl">🎯</span>
+                <div className="flex items-center space-x-3">
+                  <Target className="w-5 h-5 text-accent" />
                   <span>Tailored solutions</span>
                 </div>
               </div>
@@ -166,7 +168,10 @@ const Contact = () => {
                 size="lg" 
                 className="w-full text-xl py-8 bg-gradient-to-r from-accent to-primary hover:from-primary hover:to-accent transition-all duration-300 glow-accent transform hover:scale-[1.02] hover:shadow-2xl group relative overflow-hidden font-semibold"
               >
-                <span className="relative z-10">🚀 Get My Custom Quote</span>
+                <span className="relative z-10 flex items-center gap-2">
+                  <Rocket className="w-5 h-5" />
+                  Get My Custom Quote
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </Button>
             </form>
@@ -179,11 +184,11 @@ const Contact = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div className="flex items-center justify-center space-x-3 text-foreground bg-card/50 p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-colors duration-300 group">
-              <span className="text-3xl group-hover:scale-110 transition-transform duration-300">📧</span>
+              <Mail className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-300" />
               <span className="text-lg">hello@zeroinputai.com</span>
             </div>
             <div className="flex items-center justify-center space-x-3 text-foreground bg-card/50 p-6 rounded-xl border border-border/50 hover:border-accent/50 transition-colors duration-300 group">
-              <span className="text-3xl group-hover:scale-110 transition-transform duration-300">📱</span>
+              <Smartphone className="w-6 h-6 text-accent group-hover:scale-110 transition-transform duration-300" />
               <span className="text-lg">Available 24/7 for urgent automations</span>
             </div>
           </div>

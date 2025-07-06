@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Play, CheckCircle, Mail, MessageCircle, Calendar, Package, Target, Share2 } from "lucide-react";
+import { Play, CheckCircle, Mail, MessageCircle, Calendar, Package, Target, Share2, Rocket, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const FreeAutomations = () => {
@@ -236,7 +236,7 @@ const FreeAutomations = () => {
               <textarea
                 placeholder="What would you like to post?"
                 className="w-full h-16 text-xs bg-background/50 border border-border/30 rounded p-2 resize-none"
-                defaultValue="🚀 Exciting news! Our new automation tools are now live..."
+                defaultValue="📧 Exciting news! Our new automation tools are now live..."
               />
             </div>
             <div className="grid grid-cols-3 gap-2">
@@ -291,15 +291,21 @@ const FreeAutomations = () => {
                 <div className="flex justify-between items-center p-2 bg-background/30 rounded">
                   <span className="text-sm">Widget A</span>
                   <div className="flex items-center space-x-2">
-                    <Badge variant="destructive" className="text-xs">5 units</Badge>
-                    <span className="text-xs text-red-400">⚠️ Low Stock</span>
+                     <Badge variant="destructive" className="text-xs">5 units</Badge>
+                     <span className="text-xs text-red-400 flex items-center gap-1">
+                       <Zap className="w-3 h-3" />
+                       Low Stock
+                     </span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center p-2 bg-background/30 rounded">
                   <span className="text-sm">Widget B</span>
                   <div className="flex items-center space-x-2">
-                    <Badge variant="secondary" className="text-xs">150 units</Badge>
-                    <span className="text-xs text-green-400">✅ In Stock</span>
+                     <Badge variant="secondary" className="text-xs">150 units</Badge>
+                     <span className="text-xs text-green-400 flex items-center gap-1">
+                       <CheckCircle className="w-3 h-3" />
+                       In Stock
+                     </span>
                   </div>
                 </div>
               </div>
@@ -359,7 +365,10 @@ const FreeAutomations = () => {
 
     return (
       <div className="mt-4 animate-fade-in">
-        <h4 className="text-sm font-medium mb-3 text-primary">🚀 Try It Live:</h4>
+        <h4 className="text-sm font-medium mb-3 text-primary flex items-center gap-2">
+          <Rocket className="w-4 h-4" />
+          Try It Live:
+        </h4>
         {demoContent[automation.demoType as keyof typeof demoContent]}
       </div>
     );

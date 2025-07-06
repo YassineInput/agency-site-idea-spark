@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BarChart3, Target, Zap, Rocket, Clipboard, Gift } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const LeadCapture = () => {
@@ -103,25 +104,26 @@ const LeadCapture = () => {
           </div>
           
           <CardHeader className="relative z-10 text-center pt-12">
-            <CardTitle className="text-3xl text-primary mb-4 font-bold">
-              🎁 Free Resources Package
+            <CardTitle className="text-3xl text-primary mb-4 font-bold flex items-center justify-center gap-3">
+              <Gift className="w-8 h-8" />
+              Free Resources Package
             </CardTitle>
             <div className="text-xl leading-relaxed">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">📋</span>
+                  <Clipboard className="w-5 h-5 text-accent" />
                   <span className="text-foreground/80">Automation Implementation Guide</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">📊</span>
+                  <BarChart3 className="w-5 h-5 text-primary" />
                   <span className="text-foreground/80">ROI Calculator Spreadsheet</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">🎯</span>
+                  <Target className="w-5 h-5 text-accent" />
                   <span className="text-foreground/80">Free 30-min Strategy Session</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">⚡</span>
+                  <Zap className="w-5 h-5 text-primary" />
                   <span className="text-foreground/80">Beta Automation Setup</span>
                 </div>
               </div>
@@ -187,7 +189,10 @@ const LeadCapture = () => {
                 size="lg" 
                 className="w-full text-xl py-8 bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary transition-all duration-300 glow-primary transform hover:scale-[1.02] hover:shadow-2xl group relative overflow-hidden font-semibold"
               >
-                <span className="relative z-10">🚀 Send Me The Free Resources</span>
+                <span className="relative z-10 flex items-center gap-2">
+                  <Rocket className="w-5 h-5" />
+                  Send Me The Free Resources
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </Button>
             </form>

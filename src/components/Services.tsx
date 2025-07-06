@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
+import { Bot, Target, Smartphone, Mail, Package, Calendar, LucideIcon } from "lucide-react";
 
 const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,37 +25,37 @@ const Services = () => {
     {
       title: "Customer Service Automation",
       description: "Automated chatbots and response systems to handle customer inquiries 24/7",
-      icon: "🤖",
+      icon: Bot,
       gradient: "from-blue-500 to-purple-600"
     },
     {
       title: "Lead Generation Automation",
       description: "Capture, qualify, and nurture leads automatically from your website and social media",
-      icon: "🎯",
+      icon: Target,
       gradient: "from-purple-500 to-pink-600"
     },
     {
       title: "Social Media Automation",
       description: "Schedule posts, respond to comments, and grow your social presence automatically",
-      icon: "📱",
+      icon: Smartphone,
       gradient: "from-pink-500 to-red-600"
     },
     {
       title: "Email Marketing Automation",
       description: "Personalized email sequences that convert prospects into paying customers",
-      icon: "📧",
+      icon: Mail,
       gradient: "from-red-500 to-orange-600"
     },
     {
       title: "Inventory Management",
       description: "Automatic stock tracking, reordering, and supplier communication",
-      icon: "📦",
+      icon: Package,
       gradient: "from-orange-500 to-yellow-600"
     },
     {
       title: "Appointment Scheduling",
       description: "Automated booking system with calendar integration and reminders",
-      icon: "📅",
+      icon: Calendar,
       gradient: "from-yellow-500 to-green-600"
     }
   ];
@@ -96,8 +97,8 @@ const Services = () => {
               </div>
               
               <CardHeader className="relative z-10 text-center pt-8">
-                <div className="text-6xl mb-6 group-hover:scale-125 transition-all duration-500 group-hover:animate-float">
-                  {service.icon}
+                <div className="mb-6 flex justify-center text-primary group-hover:scale-125 transition-all duration-500 group-hover:animate-float">
+                  <service.icon className="w-16 h-16" />
                 </div>
                 <CardTitle className="text-2xl text-foreground group-hover:text-primary transition-colors duration-300">
                   {service.title}
