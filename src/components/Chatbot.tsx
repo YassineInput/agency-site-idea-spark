@@ -290,12 +290,21 @@ What specific area interests you most?`;
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3">
+        {/* Attention-grabbing text */}
+        <div className="bg-card/95 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-2 shadow-lg animate-pulse">
+          <p className="text-sm font-medium text-foreground">💬 Got automation questions?</p>
+          <p className="text-xs text-muted-foreground">Ask our AI assistant instantly!</p>
+        </div>
+        
         <Button
           onClick={() => setIsOpen(true)}
-          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group"
+          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group relative"
         >
           <MessageCircle className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+          {/* Pulsing indicator */}
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-ping"></div>
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full"></div>
         </Button>
       </div>
     );
