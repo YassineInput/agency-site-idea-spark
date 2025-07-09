@@ -122,22 +122,8 @@ const Hero = () => {
                 </div>
               </div>
               
-              <div className="absolute bottom-8 left-8 p-4 bg-card/80 backdrop-blur-sm rounded-2xl border border-accent/20 shadow-2xl">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-accent">∞</div>
-                  <div className="text-xs text-foreground/60 uppercase tracking-wider">Possibilities</div>
-                </div>
-              </div>
             </div>
           </div>
-        </div>
-      </div>
-      
-      {/* Elegant scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="flex flex-col items-center space-y-2 opacity-60">
-          <span className="text-xs text-white uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-primary to-transparent"></div>
         </div>
       </div>
     </section>
