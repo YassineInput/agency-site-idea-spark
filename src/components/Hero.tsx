@@ -45,7 +45,7 @@ const Hero = () => {
                     Automation
                   </span>
                   <br />
-                  <span className="text-foreground/60 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">
+                  <span className="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">
                     Systems
                   </span>
                 </h1>
@@ -54,7 +54,7 @@ const Hero = () => {
               </div>
               
               {/* Premium Description */}
-              <p className="text-xl lg:text-2xl text-foreground/60 leading-relaxed max-w-xl font-light">
+              <p className="text-xl lg:text-2xl text-white leading-relaxed max-w-xl font-light">
                 We architect bespoke automation ecosystems that eliminate manual processes, 
                 <span className="text-primary font-medium"> amplify productivity</span>, and deliver 
                 <span className="text-accent font-medium"> measurable ROI</span> within 24 hours.
@@ -64,17 +64,17 @@ const Hero = () => {
               <div className="flex items-center space-x-12 pt-4">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">24h</div>
-                  <div className="text-sm text-foreground/50 uppercase tracking-wider">Delivery</div>
+                  <div className="text-sm text-white uppercase tracking-wider">Delivery</div>
                 </div>
                 <div className="w-px h-12 bg-foreground/10"></div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-accent">100%</div>
-                  <div className="text-sm text-foreground/50 uppercase tracking-wider">Automated</div>
+                  <div className="text-sm text-white uppercase tracking-wider">Automated</div>
                 </div>
                 <div className="w-px h-12 bg-foreground/10"></div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">∞</div>
-                  <div className="text-sm text-foreground/50 uppercase tracking-wider">Scalable</div>
+                  <div className="text-sm text-white uppercase tracking-wider">Scalable</div>
                 </div>
               </div>
               
@@ -136,7 +136,7 @@ const Hero = () => {
       {/* Elegant scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <div className="flex flex-col items-center space-y-2 opacity-60">
-          <span className="text-xs text-foreground/50 uppercase tracking-widest">Scroll</span>
+          <span className="text-xs text-white uppercase tracking-widest">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-primary to-transparent"></div>
         </div>
       </div>
