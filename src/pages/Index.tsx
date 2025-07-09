@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import FreeAutomations from "@/components/FreeAutomations";
 import LeadCapture from "@/components/LeadCapture";
 import Contact from "@/components/Contact";
+import Chatbot from "@/components/Chatbot";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <FreeAutomations />
       <LeadCapture />
       <Contact />
+      <Chatbot />
     </div>
   );
 };
