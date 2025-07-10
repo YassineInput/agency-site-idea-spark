@@ -452,13 +452,15 @@ const FreeAutomations = () => {
                     {/* Action Button */}
                     <div className="pt-4">
                       <Button
-                        onClick={() => runDemo(automation.id, automation.demoType)}
+                        onClick={() => {
+                          const element = document.getElementById('lead-capture-section');
+                          element?.scrollIntoView({ behavior: 'smooth' });
+                        }}
                         className="w-full bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-primary-foreground"
                         size="lg"
                       >
                         <Play className="w-4 h-4 mr-2" />
-                        {activeDemo === automation.id ? 'Hide Demo' : 
-                          automation.id === 'appointment' ? 'Get FREE Booking System Now' : 'Try Interactive Demo'}
+                        Get This Automation FREE
                       </Button>
                     </div>
                   </div>
