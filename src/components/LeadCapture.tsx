@@ -88,8 +88,7 @@ const LeadCapture = () => {
             <span className="text-foreground">Automation Guide</span>
           </h2>
           <p className="text-2xl text-foreground/70 max-w-3xl mx-auto">
-            Download our comprehensive automation guide and get started with your first 
-            <span className="text-primary font-semibold"> free automation</span>
+            Choose your automation below and get it deployed in 24 hours. Full enterprise access for 7 days, then pricing from $2,997-$5,997 setup + $897-$1,997/month based on automation complexity.
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mt-8 rounded-full"></div>
         </div>
