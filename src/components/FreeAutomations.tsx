@@ -77,7 +77,7 @@ const FreeAutomations = () => {
     {
       id: "appointment",
       title: "Appointment Scheduler",
-      description: "Automated booking system with calendar integration and reminders",
+      description: "Get a fully working booking system delivered to your email in 24 hours - this is the exact automation we use for our clients",
       icon: Calendar,
       gradient: "from-yellow-500 to-green-600",
       demoType: "calendar",
@@ -457,7 +457,8 @@ const FreeAutomations = () => {
                         size="lg"
                       >
                         <Play className="w-4 h-4 mr-2" />
-                        {activeDemo === automation.id ? 'Hide Demo' : 'Try Interactive Demo'}
+                        {activeDemo === automation.id ? 'Hide Demo' : 
+                          automation.id === 'appointment' ? 'Get FREE Booking System Now' : 'Try Interactive Demo'}
                       </Button>
                     </div>
                   </div>
