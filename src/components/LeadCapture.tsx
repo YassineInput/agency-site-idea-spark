@@ -130,72 +130,19 @@ const LeadCapture = () => {
             </div>
           </CardHeader>
           <CardContent className="relative z-10 p-8">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="name" className="text-lg font-medium">Full Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="h-14 text-lg border-border/50 focus:border-primary transition-colors bg-background/50"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="email" className="text-lg font-medium">Business Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@business.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="h-14 text-lg border-border/50 focus:border-primary transition-colors bg-background/50"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <Label htmlFor="business" className="text-lg font-medium">Business Name</Label>
-                <Input
-                  id="business"
-                  type="text"
-                  placeholder="Your business name"
-                  value={formData.business}
-                  onChange={(e) => setFormData({ ...formData, business: e.target.value })}
-                  className="h-14 text-lg border-border/50 focus:border-primary transition-colors bg-background/50"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <Label htmlFor="automation" className="text-lg font-medium">Primary Automation Interest</Label>
-                <Select value={formData.automationType} onValueChange={(value) => setFormData({ ...formData, automationType: value })}>
-                  <SelectTrigger className="h-14 text-lg border-border/50 focus:border-primary transition-colors bg-background/50">
-                    <SelectValue placeholder="Select the automation you're most interested in" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {automationTypes.map((type) => (
-                      <SelectItem key={type} value={type} className="text-lg py-3">
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <Button 
-                type="submit" 
-                size="lg" 
-                className="w-full text-xl py-8 bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary transition-all duration-300 glow-primary transform hover:scale-[1.02] hover:shadow-2xl group relative overflow-hidden font-semibold"
+            <div className="w-full">
+              <iframe 
+                src="https://docs.google.com/forms/d/e/1FAIpQLSc4pEtWMjvIKdI4a8uXpkUKwp-FoIOPRAJcWyK07Vxjc3W68g/viewform?embedded=true" 
+                width="100%" 
+                height="800"
+                frameBorder="0"
+                marginHeight={0}
+                marginWidth={0}
+                className="rounded-lg"
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  <Rocket className="w-5 h-5" />
-                  Send Me The Free Resources
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              </Button>
-            </form>
+                Loading…
+              </iframe>
+            </div>
           </CardContent>
         </Card>
       </div>
