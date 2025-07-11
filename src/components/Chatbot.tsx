@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageCircle, Send, X, Bot, User } from "lucide-react";
+import { MessageCircle, Send, X, Bot, User, Minimize2, Circle, Copy, DollarSign, Gift, Calendar, HelpCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Message {
@@ -14,10 +14,11 @@ interface Message {
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hi! I'm your ZeroInputAI assistant. I can help you learn about our automation services, pricing, and setup process. What would you like to know?",
+      text: "Hey! 👋 Looking for automation solutions? I can help you get started with free templates or custom setup.",
       sender: "bot",
       timestamp: new Date()
     }
@@ -257,12 +258,12 @@ What automation challenges is your business facing right now?`;
     return `I'd be happy to help! I can provide information about:
 
 🤖 **Our 6 Main Automations:**
-• Customer Service Chatbots ($297/mo)
-• Lead Generation ($397/mo)  
-• Social Media Automation ($197/mo)
-• Email Marketing ($347/mo)
-• Inventory Management ($447/mo)
-• Appointment Scheduling ($247/mo)
+• Customer Service Chatbots ($2,500 setup + $497/mo)
+• Lead Generation ($3,500 setup + $797/mo)  
+• Social Media Automation ($2,500 setup + $497/mo)
+• Email Marketing ($2,500 setup + $497/mo)
+• Inventory Management ($3,500 setup + $797/mo)
+• Appointment Scheduling ($4,500 setup + $997/mo)
 
 💡 **General Info:**
 • Custom automation solutions
@@ -302,13 +303,12 @@ What specific area interests you most?`;
     }, 1500);
   };
 
-  const handleQuickQuestion = (question: string) => {
-    setInputValue(question);
-    // Auto-submit the question
+  const handleQuickAction = (action: string) => {
+    setInputValue(action);
     setTimeout(() => {
       const userMessage: Message = {
         id: Date.now().toString(),
-        text: question,
+        text: action,
         sender: "user",
         timestamp: new Date()
       };
@@ -319,7 +319,7 @@ What specific area interests you most?`;
       setTimeout(() => {
         const botResponse: Message = {
           id: (Date.now() + 1).toString(),
-          text: generateResponse(question),
+          text: generateResponse(action),
           sender: "bot",
           timestamp: new Date()
         };
@@ -330,151 +330,259 @@ What specific area interests you most?`;
     }, 100);
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copied!",
+      description: "Information copied to clipboard",
+    });
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
+    setTimeout(() => setIsExpanded(true), 50);
+  };
+
+  const handleClose = () => {
+    setIsExpanded(false);
+    setTimeout(() => setIsOpen(false), 300);
+  };
+
+  const handleMinimize = () => {
+    setIsExpanded(false);
+    setTimeout(() => setIsOpen(false), 300);
+  };
+
   if (!isOpen) {
     return (
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3">
         {/* Attention-grabbing text */}
-        <div className="bg-card/95 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-2 shadow-lg animate-pulse">
-          <p className="text-sm font-medium text-foreground">💬 Got automation questions?</p>
-          <p className="text-xs text-muted-foreground">Ask our AI assistant instantly!</p>
+        <div className="bg-gradient-to-r from-[#1a1a2e] to-[#0f0f1e] backdrop-blur-sm border border-[#0066FF]/20 rounded-lg px-4 py-2 shadow-lg animate-pulse">
+          <p className="text-sm font-medium text-white">💬 Got automation questions?</p>
+          <p className="text-xs text-gray-300">Ask our AI assistant instantly!</p>
         </div>
         
         <Button
-          onClick={() => setIsOpen(true)}
-          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group relative"
+          onClick={handleOpen}
+          className="h-16 w-16 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-[#0052CC] hover:to-[#0066FF] shadow-lg hover:shadow-xl transition-all duration-300 group relative animate-pulse"
         >
-          <MessageCircle className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+          <MessageCircle className="h-7 w-7 group-hover:scale-110 transition-transform duration-300 text-white" />
           {/* Pulsing indicator */}
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-ping"></div>
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full"></div>
+          <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#00FF88] rounded-full animate-ping"></div>
+          <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#00FF88] rounded-full"></div>
         </Button>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-2rem)]">
-      <Card className="h-[500px] flex flex-col bg-card/95 backdrop-blur-sm border-border/50 shadow-xl">
-        <CardHeader className="flex flex-row items-center justify-between pb-4 bg-primary/5 rounded-t-lg">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-lg">ZeroInputAI Assistant</CardTitle>
-              <p className="text-sm text-muted-foreground">Always here to help</p>
-            </div>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsOpen(false)}
-            className="h-8 w-8 p-0"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </CardHeader>
+    <>
+      {/* Dark overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          isExpanded ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={handleClose}
+      />
+      
+      {/* Chat Modal */}
+      <div className={`fixed z-50 transition-all duration-500 ease-out ${
+        isExpanded 
+          ? 'bottom-6 right-6 w-[500px] h-[700px] md:w-[500px] md:h-[700px]' 
+          : 'bottom-6 right-6 w-16 h-16'
+      } ${
+        // Mobile responsive - full screen on small devices
+        isExpanded ? 'max-md:inset-4 max-md:w-auto max-md:h-auto' : ''
+      }`}>
+        <Card className={`h-full flex flex-col transition-all duration-500 ${
+          isExpanded 
+            ? 'bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1e] border-[#0066FF]/30 shadow-2xl rounded-[20px] scale-100 opacity-100' 
+            : 'bg-[#0066FF] scale-0 opacity-0 rounded-full'
+        }`}>
+          {isExpanded && (
+            <>
+              {/* Enhanced Header */}
+              <CardHeader className="flex flex-row items-center justify-between pb-4 bg-gradient-to-r from-[#0066FF]/10 to-[#0052CC]/10 rounded-t-[20px] border-b border-[#0066FF]/20">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0052CC] flex items-center justify-center shadow-lg">
+                    <Bot className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl text-white">ZeroInput AI Assistant</CardTitle>
+                    <div className="flex items-center space-x-2">
+                      <Circle className="w-2 h-2 fill-[#00FF88] text-[#00FF88]" />
+                      <p className="text-sm text-gray-300">Online - Instant Response</p>
+                    </div>
+                    <p className="text-xs text-gray-400">Est. response time: ~2 seconds</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleMinimize}
+                    className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-white/10 rounded-full"
+                  >
+                    <Minimize2 className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleClose}
+                    className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-white/10 rounded-full"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardHeader>
 
-        <CardContent className="flex-1 flex flex-col p-0">
-          {/* Messages area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex items-start space-x-3 ${
-                  message.sender === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                {message.sender === "bot" && (
-                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-primary" />
-                  </div>
-                )}
-                <div
-                  className={`max-w-[80%] p-3 rounded-lg text-sm whitespace-pre-line ${
-                    message.sender === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
-                  }`}
-                >
-                  {message.text}
+              <CardContent className="flex-1 flex flex-col p-0">
+                {/* Messages area */}
+                <div className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth">
+                  {messages.map((message, index) => (
+                    <div
+                      key={message.id}
+                      className={`flex items-start space-x-3 animate-fade-in ${
+                        message.sender === "user" ? "justify-end" : "justify-start"
+                      }`}
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      {message.sender === "bot" && (
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0052CC] flex items-center justify-center flex-shrink-0">
+                          <Bot className="w-4 h-4 text-white" />
+                        </div>
+                      )}
+                      <div className="relative group">
+                        <div
+                          className={`max-w-[320px] p-4 rounded-2xl text-sm whitespace-pre-line shadow-lg transition-all duration-200 hover:shadow-xl ${
+                            message.sender === "user"
+                              ? "bg-gradient-to-r from-[#0066FF] to-[#0052CC] text-white"
+                              : "bg-[#2a2a3e] text-gray-100 border border-gray-600/30"
+                          }`}
+                        >
+                          {message.text}
+                        </div>
+                        {/* Copy button for bot messages */}
+                        {message.sender === "bot" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyToClipboard(message.text)}
+                            className="absolute -top-2 -right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity bg-[#2a2a3e] hover:bg-[#3a3a4e] text-gray-400 hover:text-white rounded-full"
+                          >
+                            <Copy className="h-3 w-3" />
+                          </Button>
+                        )}
+                      </div>
+                      {message.sender === "user" && (
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#00FF88] to-[#00CC70] flex items-center justify-center flex-shrink-0">
+                          <User className="w-4 h-4 text-white" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {isTyping && (
+                    <div className="flex items-start space-x-3 animate-fade-in">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0052CC] flex items-center justify-center">
+                        <Bot className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="bg-[#2a2a3e] p-4 rounded-2xl border border-gray-600/30">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
                 </div>
-                {message.sender === "user" && (
-                  <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                    <User className="w-4 h-4 text-accent-foreground" />
-                  </div>
-                )}
-              </div>
-            ))}
-            
-            {isTyping && (
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-primary" />
-                </div>
-                <div className="bg-muted p-3 rounded-lg">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
 
-          {/* Quick questions */}
-          {messages.length === 1 && (
-            <div className="p-4 border-t border-border/50">
-              <p className="text-xs text-muted-foreground mb-2">Quick questions:</p>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleQuickQuestion("What are your prices?")}
-                  className="text-xs"
-                >
-                  Pricing
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleQuickQuestion("How long is setup?")}
-                  className="text-xs"
-                >
-                  Setup Time
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleQuickQuestion("Tell me about lead generation")}
-                  className="text-xs"
-                >
-                  Lead Gen
-                </Button>
-              </div>
-            </div>
+                {/* Quick Action Buttons */}
+                <div className="px-6 py-4 border-t border-gray-600/30">
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleQuickAction("What are your prices?")}
+                      className="text-xs bg-[#2a2a3e] border-[#0066FF]/30 text-gray-200 hover:bg-[#0066FF]/20 hover:border-[#0066FF] hover:text-white transition-all duration-200"
+                    >
+                      <DollarSign className="w-3 h-3 mr-1" />
+                      💰 View Pricing
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleQuickAction("Tell me about free templates")}
+                      className="text-xs bg-[#2a2a3e] border-[#0066FF]/30 text-gray-200 hover:bg-[#0066FF]/20 hover:border-[#0066FF] hover:text-white transition-all duration-200"
+                    >
+                      <Gift className="w-3 h-3 mr-1" />
+                      🎁 Free Templates
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleQuickAction("How do I book a consultation?")}
+                      className="text-xs bg-[#2a2a3e] border-[#0066FF]/30 text-gray-200 hover:bg-[#0066FF]/20 hover:border-[#0066FF] hover:text-white transition-all duration-200"
+                    >
+                      <Calendar className="w-3 h-3 mr-1" />
+                      📅 Book Consultation
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleQuickAction("How does your setup process work?")}
+                      className="text-xs bg-[#2a2a3e] border-[#0066FF]/30 text-gray-200 hover:bg-[#0066FF]/20 hover:border-[#0066FF] hover:text-white transition-all duration-200"
+                    >
+                      <HelpCircle className="w-3 h-3 mr-1" />
+                      ❓ How It Works
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Enhanced Input area */}
+                <div className="p-6 border-t border-gray-600/30 bg-[#1a1a2e]/50">
+                  <form onSubmit={handleSendMessage} className="flex space-x-3">
+                    <Input
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      placeholder="Ask about automations, pricing, setup..."
+                      className="flex-1 bg-[#2a2a3e] border-gray-600/30 text-white placeholder-gray-400 focus:border-[#0066FF] focus:ring-[#0066FF]/20 rounded-xl"
+                      disabled={isTyping}
+                    />
+                    <Button 
+                      type="submit" 
+                      disabled={isTyping || !inputValue.trim()}
+                      className="bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-[#0052CC] hover:to-[#0066FF] text-white rounded-xl px-6 shadow-lg hover:shadow-xl transition-all duration-200"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </form>
+                  
+                  {/* New conversation button */}
+                  <div className="flex justify-center mt-3">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setMessages([{
+                        id: "1",
+                        text: "Hey! 👋 Looking for automation solutions? I can help you get started with free templates or custom setup.",
+                        sender: "bot",
+                        timestamp: new Date()
+                      }])}
+                      className="text-xs text-gray-400 hover:text-white hover:bg-white/5 rounded-lg"
+                    >
+                      🔄 New Conversation
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </>
           )}
-
-          {/* Input area */}
-          <div className="p-4 border-t border-border/50">
-            <form onSubmit={handleSendMessage} className="flex space-x-2">
-              <Input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about our automations..."
-                className="flex-1"
-                disabled={isTyping}
-              />
-              <Button type="submit" size="sm" disabled={isTyping || !inputValue.trim()}>
-                <Send className="h-4 w-4" />
-              </Button>
-            </form>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        </Card>
+      </div>
+    </>
   );
 };
 
