@@ -100,16 +100,58 @@ const Chatbot = () => {
 
     // Pricing questions
     if (message.includes("price") || message.includes("cost") || message.includes("pricing") || message.includes("how much")) {
-      return `Here are our automation service prices:
+      return `Great question! We offer free automation templates (JSON files) that you can implement yourself, OR we can professionally set them up and manage them for you.
 
-📧 Email Marketing: $347/month
-🎯 Lead Generation: $397/month  
-🤖 Customer Service Chatbot: $297/month
-📱 Social Media Automation: $197/month
-📦 Inventory Management: $447/month
-📅 Appointment Scheduling: $247/month
+Here's our pricing for professional implementation:
 
-All services include setup within 24 hours and monthly maintenance. Custom automations are priced based on complexity. Would you like details about any specific service?`;
+🤖 Customer Service Chatbot
+Setup: $2,500 (one-time)
+Management: $497/month
+Includes 24/7 response system, FAQ training, escalation rules
+
+🎯 Lead Generation Funnel
+Setup: $3,500 (one-time)
+Management: $797/month
+Includes multi-channel capture, lead scoring, CRM integration
+
+📱 Social Media Scheduler
+Setup: $2,500 (one-time)
+Management: $497/month
+Includes multi-platform posting, content calendar, analytics
+
+📧 Email Campaign Automation
+Setup: $2,500 (one-time)
+Management: $497/month
+Includes drip campaigns, segmentation, A/B testing
+
+📦 Inventory Management
+Setup: $3,500 (one-time)
+Management: $797/month
+Includes stock tracking, reorder automation, supplier management
+
+📅 Appointment Scheduler
+Setup: $4,500 (one-time)
+Management: $997/month
+Includes calendar sync, payment processing, client portal
+
+💰 Save 20% on setup fees when purchasing 3+ automations!
+All plans include ongoing optimization and support. No contracts - cancel anytime with 30-day notice.
+Want to try before you buy? Get the free templates first!`;
+    }
+
+    // Management questions
+    if (message.includes("what's included in management") || message.includes("whats included in management") || message.includes("management include")) {
+      return "Monthly management includes system monitoring, performance optimization, troubleshooting, updates, and priority support. We ensure your automation runs smoothly 24/7.";
+    }
+
+    // Setup only questions
+    if (message.includes("setup without management") || message.includes("just setup") || message.includes("setup only") || message.includes("no management")) {
+      return "Yes! You can purchase setup-only. However, most clients find the monthly management valuable for ongoing optimization and support.";
+    }
+
+    // Setup time questions
+    if (message.includes("how long does setup take") || message.includes("setup time") || message.includes("how long setup")) {
+      return "Setup typically takes 3-5 business days after receiving your requirements. Complex implementations may take up to 7 days.";
     }
 
     // Setup and implementation questions
