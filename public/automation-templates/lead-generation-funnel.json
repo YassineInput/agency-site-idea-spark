@@ -1,0 +1,201 @@
+{
+  "automation_name": "Lead Generation Funnel",
+  "description": "Capture, qualify, and nurture leads automatically from multiple sources with scoring and CRM integration",
+  "version": "1.0",
+  "triggers": [
+    {
+      "type": "form_submission",
+      "name": "website_form",
+      "description": "New lead submits contact form",
+      "required_fields": ["email", "name"]
+    },
+    {
+      "type": "social_media",
+      "name": "social_engagement",
+      "description": "User engages with social media content",
+      "platforms": ["facebook", "instagram", "linkedin", "twitter"]
+    },
+    {
+      "type": "email_engagement",
+      "name": "email_interaction",
+      "description": "Lead opens/clicks email campaign",
+      "events": ["open", "click", "reply"]
+    },
+    {
+      "type": "website_behavior",
+      "name": "site_activity",
+      "description": "Visitor behavior on website",
+      "events": ["page_view", "download", "video_watch", "time_on_site"]
+    }
+  ],
+  "actions": [
+    {
+      "id": "lead_scoring",
+      "type": "scoring_engine",
+      "description": "Calculate lead score based on behavior and demographics",
+      "config": {
+        "scoring_criteria": {
+          "form_submission": 25,
+          "email_open": 5,
+          "email_click": 10,
+          "pricing_page_visit": 20,
+          "demo_request": 50,
+          "phone_number_provided": 15,
+          "company_size_enterprise": 30,
+          "job_title_decision_maker": 25
+        },
+        "qualification_threshold": 75
+      }
+    },
+    {
+      "id": "lead_enrichment",
+      "type": "data_enrichment",
+      "description": "Enrich lead data with additional information",
+      "config": {
+        "data_sources": ["clearbit", "zoominfo", "linkedin"],
+        "fields_to_enrich": ["company_size", "industry", "job_title", "social_profiles", "company_revenue"]
+      }
+    },
+    {
+      "id": "segment_lead",
+      "type": "categorization",
+      "description": "Categorize leads into segments",
+      "config": {
+        "segments": {
+          "hot_lead": "score >= 75",
+          "warm_lead": "score >= 50 AND score < 75", 
+          "cold_lead": "score < 50",
+          "enterprise": "company_size > 500",
+          "smb": "company_size <= 500"
+        }
+      }
+    },
+    {
+      "id": "send_welcome_sequence",
+      "type": "email_campaign",
+      "description": "Send personalized welcome email sequence",
+      "config": {
+        "sequences": {
+          "hot_lead": ["welcome_hot", "demo_offer", "case_study", "follow_up"],
+          "warm_lead": ["welcome_warm", "educational_content", "social_proof", "nurture"],
+          "cold_lead": ["welcome_cold", "blog_content", "newsletter_signup"]
+        },
+        "personalization": true,
+        "send_intervals": ["immediate", "1_day", "3_days", "7_days"]
+      }
+    },
+    {
+      "id": "crm_integration",
+      "type": "crm_sync",
+      "description": "Create/update lead in CRM system",
+      "config": {
+        "crm_platform": "hubspot",
+        "lead_fields": ["name", "email", "company", "phone", "lead_score", "source", "segment"],
+        "create_tasks": true,
+        "assign_to_sales": true
+      }
+    },
+    {
+      "id": "sales_notification",
+      "type": "notification",
+      "description": "Notify sales team of qualified leads",
+      "config": {
+        "notification_channels": ["slack", "email"],
+        "trigger_threshold": "score >= 75",
+        "include_lead_details": true,
+        "suggested_next_actions": true
+      }
+    },
+    {
+      "id": "retargeting_pixel",
+      "type": "advertising",
+      "description": "Add leads to retargeting campaigns",
+      "config": {
+        "platforms": ["facebook", "google_ads", "linkedin"],
+        "audience_segments": ["visited_pricing", "downloaded_content", "abandoned_form"],
+        "campaign_types": ["awareness", "consideration", "conversion"]
+      }
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "lead_enrichment",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 2, 
+      "action": "lead_scoring",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 3,
+      "action": "segment_lead", 
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 4,
+      "action": "crm_integration",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 5,
+      "action": "send_welcome_sequence",
+      "conditions": {
+        "if": "trigger.type == 'form_submission'"
+      }
+    },
+    {
+      "step": 6,
+      "action": "sales_notification",
+      "conditions": {
+        "if": "lead_scoring.score >= 75"
+      }
+    },
+    {
+      "step": 7,
+      "action": "retargeting_pixel",
+      "conditions": {
+        "if": "lead_scoring.score >= 25"
+      }
+    }
+  ],
+  "settings": {
+    "lead_lifecycle": {
+      "qualification_criteria": {
+        "minimum_score": 50,
+        "required_fields": ["email", "company"],
+        "disqualifying_criteria": ["competitor", "student", "spam_email"]
+      },
+      "nurturing_duration": "90_days",
+      "re_engagement_attempts": 3
+    },
+    "scoring_decay": {
+      "enabled": true,
+      "decay_rate": "5_points_per_month",
+      "minimum_score": 0
+    },
+    "compliance": {
+      "gdpr_compliant": true,
+      "opt_in_required": true,
+      "data_retention_days": 730
+    }
+  },
+  "integrations_required": [
+    "CRM (HubSpot/Salesforce)",
+    "Email platform (Mailchimp/ConvertKit)",
+    "Analytics (Google Analytics)",
+    "Advertising platforms",
+    "Data enrichment services"
+  ],
+  "estimated_setup_time": "3-5 business days",
+  "complexity": "high"
+}

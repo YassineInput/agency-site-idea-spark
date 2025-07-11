@@ -1,0 +1,271 @@
+{
+  "automation_name": "Appointment Scheduler",
+  "description": "Automated booking system with calendar integration, payment processing, and client portal",
+  "version": "1.0",
+  "triggers": [
+    {
+      "type": "booking_request",
+      "name": "new_appointment",
+      "description": "Customer requests new appointment",
+      "sources": ["website_form", "phone_call", "email", "social_media"]
+    },
+    {
+      "type": "calendar_event",
+      "name": "schedule_change",
+      "description": "Changes to existing appointments",
+      "events": ["reschedule", "cancellation", "no_show", "completion"]
+    },
+    {
+      "type": "time_based",
+      "name": "reminder_trigger",
+      "description": "Time-based triggers for reminders and follow-ups",
+      "intervals": ["24_hours_before", "2_hours_before", "30_minutes_before", "post_appointment"]
+    },
+    {
+      "type": "availability_change",
+      "name": "schedule_update",
+      "description": "Provider availability changes",
+      "events": ["time_slot_opened", "time_slot_blocked", "vacation_scheduled"]
+    },
+    {
+      "type": "payment_event",
+      "name": "payment_trigger",
+      "description": "Payment-related triggers",
+      "events": ["payment_received", "payment_failed", "refund_requested"]
+    }
+  ],
+  "actions": [
+    {
+      "id": "availability_management",
+      "type": "calendar_sync",
+      "description": "Manage provider availability and calendar synchronization",
+      "config": {
+        "calendar_platforms": ["google_calendar", "outlook", "apple_calendar", "calendly"],
+        "real_time_sync": true,
+        "buffer_time": 15,
+        "working_hours": {
+          "monday": "09:00-17:00",
+          "tuesday": "09:00-17:00",
+          "wednesday": "09:00-17:00", 
+          "thursday": "09:00-17:00",
+          "friday": "09:00-17:00",
+          "saturday": "10:00-14:00",
+          "sunday": "closed"
+        },
+        "time_zone_handling": "automatic",
+        "multi_provider_support": true
+      }
+    },
+    {
+      "id": "automated_booking",
+      "type": "reservation_system",
+      "description": "Handle appointment bookings automatically",
+      "config": {
+        "booking_rules": {
+          "advance_booking_limit": "30_days",
+          "minimum_notice": "2_hours",
+          "same_day_booking": true,
+          "recurring_appointments": true,
+          "group_bookings": true
+        },
+        "appointment_types": {
+          "consultation": {"duration": 30, "price": 150},
+          "follow_up": {"duration": 15, "price": 75},
+          "procedure": {"duration": 60, "price": 300},
+          "emergency": {"duration": 45, "price": 200}
+        },
+        "confirmation_methods": ["email", "sms", "calendar_invite"],
+        "waitlist_management": true
+      }
+    },
+    {
+      "id": "client_communication",
+      "type": "messaging_system",
+      "description": "Automated communication with clients",
+      "config": {
+        "communication_channels": ["email", "sms", "push_notification", "phone_call"],
+        "message_templates": {
+          "booking_confirmation": "personalized_with_details",
+          "reminder_24h": "appointment_details_and_preparation",
+          "reminder_2h": "location_and_contact_info",
+          "cancellation": "policy_and_rebooking_options",
+          "follow_up": "feedback_request_and_next_steps"
+        },
+        "personalization": true,
+        "multi_language_support": true,
+        "client_preferences": true
+      }
+    },
+    {
+      "id": "payment_processing",
+      "type": "financial_integration",
+      "description": "Handle payments, deposits, and billing",
+      "config": {
+        "payment_gateways": ["stripe", "square", "paypal", "apple_pay", "google_pay"],
+        "payment_options": {
+          "full_payment_upfront": true,
+          "deposit_required": 50,
+          "pay_on_arrival": true,
+          "installment_plans": false
+        },
+        "automated_invoicing": true,
+        "refund_processing": "automatic_for_cancellations",
+        "late_cancellation_fees": true,
+        "no_show_charges": true
+      }
+    },
+    {
+      "id": "client_portal",
+      "type": "customer_interface",
+      "description": "Self-service portal for clients",
+      "config": {
+        "portal_features": {
+          "view_appointments": true,
+          "reschedule_online": true,
+          "cancel_appointments": true,
+          "update_personal_info": true,
+          "view_payment_history": true,
+          "download_invoices": true,
+          "access_documents": true,
+          "messaging_with_provider": true
+        },
+        "mobile_app": true,
+        "user_authentication": "email_and_password",
+        "data_security": "gdpr_compliant"
+      }
+    },
+    {
+      "id": "resource_management",
+      "type": "facility_coordination",
+      "description": "Manage rooms, equipment, and staff resources",
+      "config": {
+        "resource_types": ["consultation_rooms", "equipment", "staff_assistants"],
+        "resource_booking": "automatic_with_appointment",
+        "conflict_prevention": true,
+        "utilization_tracking": true,
+        "maintenance_scheduling": true,
+        "capacity_optimization": true
+      }
+    },
+    {
+      "id": "analytics_reporting",
+      "type": "business_intelligence",
+      "description": "Track performance metrics and generate reports",
+      "config": {
+        "key_metrics": [
+          "booking_rate", "cancellation_rate", "no_show_rate", "revenue_per_appointment",
+          "provider_utilization", "peak_booking_times", "client_satisfaction", "average_booking_lead_time"
+        ],
+        "automated_reports": {
+          "daily": ["appointments_summary", "cancellations", "no_shows"],
+          "weekly": ["revenue_report", "utilization_rates", "client_feedback"],
+          "monthly": ["business_summary", "trends_analysis", "performance_metrics"]
+        },
+        "dashboard_access": true,
+        "export_capabilities": ["pdf", "excel", "csv"]
+      }
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "availability_management",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 2,
+      "action": "automated_booking",
+      "conditions": {
+        "if": "trigger.type == 'booking_request'"
+      }
+    },
+    {
+      "step": 3,
+      "action": "payment_processing",
+      "conditions": {
+        "if": "booking.requires_payment == true"
+      }
+    },
+    {
+      "step": 4,
+      "action": "client_communication",
+      "conditions": {
+        "if": "booking.confirmed == true"
+      }
+    },
+    {
+      "step": 5,
+      "action": "resource_management",
+      "conditions": {
+        "if": "booking.confirmed == true AND appointment.requires_resources == true"
+      }
+    },
+    {
+      "step": 6,
+      "action": "client_communication",
+      "conditions": {
+        "if": "trigger.type == 'time_based' AND trigger.name == 'reminder_trigger'"
+      }
+    },
+    {
+      "step": 7,
+      "action": "analytics_reporting",
+      "conditions": {
+        "if": "trigger.type == 'calendar_event' AND event == 'completion'"
+      }
+    }
+  ],
+  "settings": {
+    "booking_policies": {
+      "cancellation_policy": {
+        "free_cancellation_hours": 24,
+        "partial_refund_hours": 12,
+        "no_refund_hours": 2
+      },
+      "reschedule_policy": {
+        "free_reschedule_hours": 24,
+        "fee_reschedule_hours": 12,
+        "no_reschedule_hours": 2
+      },
+      "no_show_policy": {
+        "charge_full_amount": true,
+        "automatic_rebooking_offered": false,
+        "waitlist_notification": true
+      }
+    },
+    "business_rules": {
+      "max_appointments_per_day": 20,
+      "break_time_between_appointments": 15,
+      "lunch_break": "12:00-13:00",
+      "emergency_slots_reserved": 2,
+      "seasonal_availability_changes": true
+    },
+    "client_experience": {
+      "booking_confirmation_speed": "immediate",
+      "reminder_preferences": "client_selectable",
+      "feedback_collection": "post_appointment",
+      "loyalty_program": false,
+      "referral_tracking": true
+    },
+    "compliance_and_security": {
+      "data_encryption": true,
+      "hipaa_compliance": true,
+      "gdpr_compliance": true,
+      "payment_security": "pci_compliant",
+      "backup_frequency": "daily",
+      "audit_trail": true
+    }
+  },
+  "integrations_required": [
+    "Calendar System (Google/Outlook)",
+    "Payment Gateway (Stripe/Square)",
+    "SMS Provider (Twilio)",
+    "Email Service (SendGrid)",
+    "CRM System",
+    "Accounting Software"
+  ],
+  "estimated_setup_time": "5-7 business days",
+  "complexity": "high"
+}

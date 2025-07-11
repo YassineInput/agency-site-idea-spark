@@ -1,0 +1,244 @@
+{
+  "automation_name": "Social Media Scheduler",
+  "description": "Multi-platform posting, content calendar management, and analytics tracking",
+  "version": "1.0",
+  "triggers": [
+    {
+      "type": "schedule",
+      "name": "posting_schedule",
+      "description": "Automated posting based on content calendar",
+      "frequency": "multiple_daily"
+    },
+    {
+      "type": "content_queue",
+      "name": "queue_trigger",
+      "description": "When new content is added to queue",
+      "auto_schedule": true
+    },
+    {
+      "type": "engagement_threshold",
+      "name": "engagement_monitor",
+      "description": "Monitor post performance and trigger follow-up actions",
+      "thresholds": ["high_engagement", "low_engagement"]
+    },
+    {
+      "type": "trending_topic",
+      "name": "trend_detection",
+      "description": "Detect trending topics in your industry",
+      "keywords": ["configurable"]
+    }
+  ],
+  "actions": [
+    {
+      "id": "optimize_posting_time",
+      "type": "analytics",
+      "description": "Analyze audience activity to find optimal posting times",
+      "config": {
+        "platforms": ["facebook", "instagram", "twitter", "linkedin", "tiktok"],
+        "analysis_period": "30_days",
+        "audience_timezone": "auto_detect",
+        "engagement_metrics": ["likes", "comments", "shares", "clicks"]
+      }
+    },
+    {
+      "id": "content_generation",
+      "type": "ai_content",
+      "description": "Generate content ideas and captions",
+      "config": {
+        "ai_model": "gpt-4",
+        "content_types": ["educational", "promotional", "entertaining", "behind_scenes"],
+        "brand_voice": "professional_friendly",
+        "hashtag_research": true,
+        "trending_topics": true
+      }
+    },
+    {
+      "id": "multi_platform_post",
+      "type": "social_publishing",
+      "description": "Post content across multiple social platforms",
+      "config": {
+        "platforms": {
+          "facebook": {
+            "enabled": true,
+            "post_types": ["text", "image", "video", "carousel"],
+            "optimal_times": ["auto"]
+          },
+          "instagram": {
+            "enabled": true,
+            "post_types": ["feed", "stories", "reels"],
+            "auto_hashtags": true
+          },
+          "twitter": {
+            "enabled": true,
+            "thread_support": true,
+            "auto_retweet_high_performers": true
+          },
+          "linkedin": {
+            "enabled": true,
+            "company_page": true,
+            "personal_profile": false
+          }
+        },
+        "cross_platform_adaptation": true
+      }
+    },
+    {
+      "id": "engagement_monitoring",
+      "type": "social_listening",
+      "description": "Monitor mentions, comments, and engagement",
+      "config": {
+        "monitor_keywords": ["brand_name", "product_names", "industry_terms"],
+        "sentiment_analysis": true,
+        "auto_respond_positive": true,
+        "alert_negative_sentiment": true,
+        "response_time_target": "1_hour"
+      }
+    },
+    {
+      "id": "performance_analytics",
+      "type": "reporting",
+      "description": "Track and analyze social media performance",
+      "config": {
+        "metrics": [
+          "reach", "impressions", "engagement_rate", "click_through_rate",
+          "follower_growth", "brand_mentions", "hashtag_performance"
+        ],
+        "reporting_frequency": "weekly",
+        "automated_insights": true,
+        "competitor_comparison": true
+      }
+    },
+    {
+      "id": "content_curation",
+      "type": "content_discovery",
+      "description": "Find and curate relevant content to share",
+      "config": {
+        "sources": ["industry_blogs", "news_sites", "influencers", "user_generated_content"],
+        "content_filters": ["relevance", "recency", "engagement_potential"],
+        "attribution_required": true,
+        "approval_workflow": false
+      }
+    },
+    {
+      "id": "hashtag_optimization",
+      "type": "hashtag_research",
+      "description": "Research and optimize hashtag usage",
+      "config": {
+        "research_tools": ["hashtag_analytics", "trending_hashtags", "competitor_hashtags"],
+        "mix_strategy": {
+          "popular_hashtags": 30,
+          "moderately_popular": 50,
+          "niche_hashtags": 20
+        },
+        "platform_specific": true
+      }
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "optimize_posting_time",
+      "conditions": {
+        "if": "trigger.type == 'schedule' AND schedule.frequency == 'weekly_analysis'"
+      }
+    },
+    {
+      "step": 2,
+      "action": "content_generation",
+      "conditions": {
+        "if": "content_queue.count < 5"
+      }
+    },
+    {
+      "step": 3,
+      "action": "hashtag_optimization",
+      "conditions": {
+        "if": "content.type in ['instagram', 'twitter']"
+      }
+    },
+    {
+      "step": 4,
+      "action": "multi_platform_post",
+      "conditions": {
+        "if": "trigger.type == 'posting_schedule' OR trigger.type == 'queue_trigger'"
+      }
+    },
+    {
+      "step": 5,
+      "action": "engagement_monitoring",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 6,
+      "action": "performance_analytics",
+      "conditions": {
+        "if": "trigger.type == 'schedule' AND schedule.frequency == 'daily_analytics'"
+      }
+    },
+    {
+      "step": 7,
+      "action": "content_curation",
+      "conditions": {
+        "if": "trigger.type == 'trending_topic'"
+      }
+    }
+  ],
+  "settings": {
+    "posting_schedule": {
+      "facebook": {
+        "monday": ["09:00", "15:00", "19:00"],
+        "tuesday": ["09:00", "15:00", "19:00"],
+        "wednesday": ["09:00", "15:00", "19:00"],
+        "thursday": ["09:00", "15:00", "19:00"],
+        "friday": ["09:00", "15:00", "19:00"],
+        "saturday": ["10:00", "16:00"],
+        "sunday": ["12:00", "18:00"]
+      },
+      "instagram": {
+        "daily_posts": 1,
+        "stories_per_day": 3,
+        "reels_per_week": 3,
+        "optimal_times": ["11:00", "14:00", "17:00"]
+      },
+      "twitter": {
+        "daily_tweets": 3,
+        "retweets_per_day": 2,
+        "engagement_window": "4_hours"
+      },
+      "linkedin": {
+        "posts_per_week": 3,
+        "best_days": ["tuesday", "wednesday", "thursday"],
+        "optimal_times": ["08:00", "12:00", "17:00"]
+      }
+    },
+    "content_guidelines": {
+      "brand_voice": "professional yet approachable",
+      "content_mix": {
+        "promotional": 20,
+        "educational": 40,
+        "entertaining": 25,
+        "user_generated": 15
+      },
+      "compliance_check": true,
+      "approval_required": false
+    },
+    "engagement_rules": {
+      "auto_like_mentions": true,
+      "auto_respond_to_questions": false,
+      "escalate_complaints": true,
+      "thank_shares": true
+    }
+  },
+  "integrations_required": [
+    "Facebook Business Manager",
+    "Instagram Business Account", 
+    "Twitter API",
+    "LinkedIn Company Page",
+    "Content creation tools",
+    "Analytics platforms"
+  ],
+  "estimated_setup_time": "2-3 business days",
+  "complexity": "medium"
+}

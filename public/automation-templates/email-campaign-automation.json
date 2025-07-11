@@ -1,0 +1,245 @@
+{
+  "automation_name": "Email Campaign Automation",
+  "description": "Personalized email sequences with behavioral triggers, segmentation, and A/B testing",
+  "version": "1.0",
+  "triggers": [
+    {
+      "type": "subscriber_action",
+      "name": "new_subscriber",
+      "description": "New email subscriber joins list",
+      "required_fields": ["email", "source"]
+    },
+    {
+      "type": "behavioral_trigger",
+      "name": "website_behavior",
+      "description": "User behavior on website triggers email",
+      "events": ["page_visit", "product_view", "cart_abandonment", "download", "video_watch"]
+    },
+    {
+      "type": "date_based",
+      "name": "milestone_trigger",
+      "description": "Date-based triggers for anniversaries, birthdays, renewals",
+      "events": ["signup_anniversary", "birthday", "renewal_reminder", "subscription_expiry"]
+    },
+    {
+      "type": "purchase_behavior",
+      "name": "transaction_trigger",
+      "description": "Purchase-related email triggers",
+      "events": ["purchase_confirmation", "shipping_update", "delivery_confirmation", "review_request"]
+    },
+    {
+      "type": "engagement_level",
+      "name": "engagement_trigger",
+      "description": "Based on email engagement patterns",
+      "events": ["highly_engaged", "declining_engagement", "re_engagement_needed", "inactive_subscriber"]
+    }
+  ],
+  "actions": [
+    {
+      "id": "subscriber_segmentation",
+      "type": "audience_segmentation",
+      "description": "Segment subscribers based on behavior, demographics, and preferences",
+      "config": {
+        "segmentation_criteria": {
+          "demographic": ["age", "location", "gender", "job_title"],
+          "behavioral": ["purchase_history", "email_engagement", "website_activity"],
+          "psychographic": ["interests", "preferences", "values"],
+          "lifecycle_stage": ["new_subscriber", "active_customer", "lapsed_customer", "vip"]
+        },
+        "dynamic_segments": true,
+        "segment_refresh_frequency": "daily"
+      }
+    },
+    {
+      "id": "email_personalization",
+      "type": "content_personalization",
+      "description": "Personalize email content for each recipient",
+      "config": {
+        "personalization_fields": ["name", "company", "last_purchase", "interests", "location"],
+        "dynamic_content_blocks": true,
+        "product_recommendations": true,
+        "send_time_optimization": true,
+        "subject_line_personalization": true
+      }
+    },
+    {
+      "id": "automated_sequences",
+      "type": "drip_campaigns",
+      "description": "Set up automated email sequences",
+      "config": {
+        "sequence_types": {
+          "welcome_series": {
+            "emails": 5,
+            "duration": "14_days",
+            "goals": ["introduce_brand", "set_expectations", "drive_engagement"]
+          },
+          "onboarding": {
+            "emails": 7,
+            "duration": "21_days", 
+            "goals": ["product_education", "feature_adoption", "support_resources"]
+          },
+          "nurture_campaign": {
+            "emails": 10,
+            "duration": "60_days",
+            "goals": ["build_trust", "educate", "move_toward_purchase"]
+          },
+          "win_back": {
+            "emails": 3,
+            "duration": "14_days",
+            "goals": ["re_engage", "special_offer", "feedback_collection"]
+          }
+        },
+        "adaptive_timing": true,
+        "behavioral_branching": true
+      }
+    },
+    {
+      "id": "ab_testing",
+      "type": "split_testing",
+      "description": "A/B test email elements for optimization",
+      "config": {
+        "test_elements": ["subject_line", "send_time", "content", "cta_button", "images"],
+        "test_duration": "24_hours",
+        "minimum_sample_size": 100,
+        "confidence_level": 95,
+        "auto_select_winner": true,
+        "test_frequency": "weekly"
+      }
+    },
+    {
+      "id": "deliverability_optimization",
+      "type": "email_delivery",
+      "description": "Optimize email deliverability and inbox placement",
+      "config": {
+        "authentication": ["spf", "dkim", "dmarc"],
+        "reputation_monitoring": true,
+        "bounce_handling": true,
+        "list_hygiene": true,
+        "send_rate_optimization": true,
+        "domain_warming": true
+      }
+    },
+    {
+      "id": "performance_tracking",
+      "type": "analytics",
+      "description": "Track email campaign performance and ROI",
+      "config": {
+        "metrics": [
+          "open_rate", "click_rate", "conversion_rate", "unsubscribe_rate",
+          "bounce_rate", "spam_complaints", "revenue_per_email", "list_growth_rate"
+        ],
+        "attribution_tracking": true,
+        "revenue_tracking": true,
+        "cohort_analysis": true,
+        "automated_reporting": "weekly"
+      }
+    },
+    {
+      "id": "automation_optimization",
+      "type": "machine_learning",
+      "description": "Use AI to optimize email campaigns automatically",
+      "config": {
+        "send_time_optimization": true,
+        "subject_line_suggestions": true,
+        "content_recommendations": true,
+        "frequency_optimization": true,
+        "churn_prediction": true,
+        "lifetime_value_prediction": true
+      }
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "subscriber_segmentation",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 2,
+      "action": "email_personalization",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 3,
+      "action": "ab_testing",
+      "conditions": {
+        "if": "campaign.type == 'broadcast' AND subscriber_count > 100"
+      }
+    },
+    {
+      "step": 4,
+      "action": "automated_sequences",
+      "conditions": {
+        "if": "trigger.type in ['new_subscriber', 'behavioral_trigger', 'date_based']"
+      }
+    },
+    {
+      "step": 5,
+      "action": "deliverability_optimization",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 6,
+      "action": "performance_tracking",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 7,
+      "action": "automation_optimization",
+      "conditions": {
+        "if": "campaign.has_historical_data == true"
+      }
+    }
+  ],
+  "settings": {
+    "sending_preferences": {
+      "default_send_time": "10:00",
+      "timezone": "subscriber_timezone",
+      "frequency_cap": "1_email_per_day",
+      "quiet_hours": {
+        "start": "22:00",
+        "end": "08:00"
+      },
+      "send_days": ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    },
+    "content_standards": {
+      "brand_consistency": true,
+      "accessibility_compliance": true,
+      "mobile_optimization": true,
+      "spam_score_check": true,
+      "legal_compliance": ["gdpr", "can_spam", "casl"]
+    },
+    "list_management": {
+      "double_opt_in": true,
+      "easy_unsubscribe": true,
+      "preference_center": true,
+      "automatic_suppression": true,
+      "re_engagement_attempts": 3
+    },
+    "automation_rules": {
+      "max_emails_per_sequence": 10,
+      "pause_on_purchase": true,
+      "respect_unsubscribe": true,
+      "honor_preferences": true,
+      "stop_on_engagement_decline": true
+    }
+  },
+  "integrations_required": [
+    "Email Service Provider (Mailchimp/ConvertKit/Klaviyo)",
+    "CRM System",
+    "E-commerce Platform", 
+    "Analytics Platform",
+    "Website Tracking",
+    "Payment Processor"
+  ],
+  "estimated_setup_time": "2-4 business days",
+  "complexity": "medium"
+}

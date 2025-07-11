@@ -1,0 +1,244 @@
+{
+  "automation_name": "Inventory Management System",
+  "description": "Real-time stock tracking with automatic reordering, supplier communication, and low stock alerts",
+  "version": "1.0",
+  "triggers": [
+    {
+      "type": "stock_level",
+      "name": "low_stock_alert",
+      "description": "Triggered when inventory falls below minimum threshold",
+      "threshold_types": ["minimum_stock", "reorder_point", "safety_stock"]
+    },
+    {
+      "type": "sales_velocity",
+      "name": "demand_change",
+      "description": "Detect changes in product demand patterns",
+      "velocity_metrics": ["daily_sales", "weekly_trend", "seasonal_patterns"]
+    },
+    {
+      "type": "supplier_update",
+      "name": "supplier_communication",
+      "description": "Updates from suppliers about stock, pricing, or delivery",
+      "update_types": ["price_change", "availability_change", "delivery_delay"]
+    },
+    {
+      "type": "schedule",
+      "name": "periodic_review",
+      "description": "Regular inventory audits and reviews",
+      "frequencies": ["daily", "weekly", "monthly"]
+    },
+    {
+      "type": "external_integration",
+      "name": "system_sync",
+      "description": "Sync with e-commerce platforms, POS systems, warehouses",
+      "sources": ["shopify", "amazon", "pos_system", "warehouse_management"]
+    }
+  ],
+  "actions": [
+    {
+      "id": "stock_monitoring",
+      "type": "inventory_tracking",
+      "description": "Real-time monitoring of stock levels across all locations",
+      "config": {
+        "tracking_methods": ["barcode_scanning", "rfid", "manual_entry", "api_integration"],
+        "locations": ["main_warehouse", "retail_stores", "supplier_warehouses", "dropship_partners"],
+        "real_time_updates": true,
+        "multi_location_visibility": true,
+        "reserved_stock_tracking": true
+      }
+    },
+    {
+      "id": "demand_forecasting",
+      "type": "predictive_analytics",
+      "description": "Predict future demand based on historical data and trends",
+      "config": {
+        "forecasting_models": ["linear_regression", "seasonal_patterns", "machine_learning"],
+        "data_sources": ["sales_history", "market_trends", "seasonal_factors", "promotional_calendar"],
+        "forecast_horizon": "90_days",
+        "accuracy_tracking": true,
+        "automatic_model_adjustment": true
+      }
+    },
+    {
+      "id": "automated_reordering",
+      "type": "purchase_automation",
+      "description": "Automatically generate and send purchase orders",
+      "config": {
+        "reorder_triggers": ["minimum_stock_reached", "forecasted_shortage", "manual_override"],
+        "supplier_selection": "preferred_supplier_list",
+        "order_optimization": ["quantity_discounts", "shipping_costs", "lead_times"],
+        "approval_workflow": {
+          "auto_approve_threshold": 1000,
+          "require_approval_above": 5000,
+          "escalation_levels": ["manager", "director", "cfo"]
+        },
+        "order_methods": ["edi", "email", "api", "supplier_portal"]
+      }
+    },
+    {
+      "id": "supplier_management",
+      "type": "vendor_relations",
+      "description": "Manage supplier relationships and communications",
+      "config": {
+        "supplier_database": {
+          "contact_information": true,
+          "performance_metrics": ["delivery_time", "quality_score", "price_competitiveness"],
+          "contract_terms": ["payment_terms", "minimum_orders", "volume_discounts"],
+          "backup_suppliers": true
+        },
+        "communication_automation": {
+          "order_confirmations": true,
+          "delivery_tracking": true,
+          "payment_reminders": true,
+          "performance_reports": "monthly"
+        }
+      }
+    },
+    {
+      "id": "alert_system",
+      "type": "notification_management",
+      "description": "Send alerts for various inventory events",
+      "config": {
+        "alert_types": {
+          "low_stock": ["email", "sms", "slack"],
+          "overstock": ["email", "dashboard"],
+          "stockout": ["urgent_sms", "email", "slack"],
+          "price_changes": ["email"],
+          "delivery_delays": ["sms", "email"]
+        },
+        "recipient_rules": {
+          "inventory_manager": "all_alerts",
+          "purchasing_team": "reorder_alerts",
+          "sales_team": "stockout_alerts",
+          "executives": "critical_only"
+        },
+        "escalation_procedures": true
+      }
+    },
+    {
+      "id": "cost_optimization",
+      "type": "financial_analysis",
+      "description": "Optimize inventory costs and carrying expenses",
+      "config": {
+        "cost_calculations": {
+          "carrying_costs": ["storage", "insurance", "depreciation", "opportunity_cost"],
+          "ordering_costs": ["processing", "shipping", "handling"],
+          "stockout_costs": ["lost_sales", "expediting", "customer_dissatisfaction"]
+        },
+        "optimization_strategies": ["economic_order_quantity", "abc_analysis", "just_in_time"],
+        "reporting": ["cost_per_unit", "inventory_turnover", "carrying_cost_percentage"]
+      }
+    },
+    {
+      "id": "quality_control",
+      "type": "quality_management",
+      "description": "Track product quality and handle defective inventory",
+      "config": {
+        "quality_checks": ["incoming_inspection", "random_sampling", "customer_returns"],
+        "defect_tracking": ["defect_types", "supplier_attribution", "cost_impact"],
+        "quarantine_management": true,
+        "return_processing": ["vendor_returns", "disposal", "refurbishment"],
+        "quality_reporting": "supplier_scorecards"
+      }
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "stock_monitoring",
+      "conditions": {
+        "always": true
+      }
+    },
+    {
+      "step": 2,
+      "action": "demand_forecasting",
+      "conditions": {
+        "if": "trigger.type == 'schedule' AND schedule.frequency == 'weekly'"
+      }
+    },
+    {
+      "step": 3,
+      "action": "alert_system",
+      "conditions": {
+        "if": "stock_level < reorder_point OR stock_level == 0"
+      }
+    },
+    {
+      "step": 4,
+      "action": "automated_reordering",
+      "conditions": {
+        "if": "stock_level <= reorder_point AND auto_reorder_enabled == true"
+      }
+    },
+    {
+      "step": 5,
+      "action": "supplier_management",
+      "conditions": {
+        "if": "automated_reordering.order_created == true"
+      }
+    },
+    {
+      "step": 6,
+      "action": "cost_optimization",
+      "conditions": {
+        "if": "trigger.type == 'schedule' AND schedule.frequency == 'monthly'"
+      }
+    },
+    {
+      "step": 7,
+      "action": "quality_control",
+      "conditions": {
+        "if": "inventory_received == true OR customer_return == true"
+      }
+    }
+  ],
+  "settings": {
+    "inventory_parameters": {
+      "reorder_methods": {
+        "fixed_reorder_point": true,
+        "periodic_review": true,
+        "demand_driven": true
+      },
+      "safety_stock_calculation": {
+        "method": "standard_deviation",
+        "service_level": 95,
+        "lead_time_variability": true
+      },
+      "abc_classification": {
+        "a_items": "80_percent_value",
+        "b_items": "15_percent_value", 
+        "c_items": "5_percent_value"
+      }
+    },
+    "automation_rules": {
+      "auto_reorder_enabled": true,
+      "max_auto_order_value": 10000,
+      "require_approval_above": 5000,
+      "emergency_procurement": true,
+      "seasonal_adjustments": true
+    },
+    "reporting_schedule": {
+      "daily_reports": ["stock_levels", "sales_velocity", "low_stock_items"],
+      "weekly_reports": ["inventory_turnover", "supplier_performance", "cost_analysis"],
+      "monthly_reports": ["abc_analysis", "demand_forecast_accuracy", "carrying_cost_report"]
+    },
+    "integration_settings": {
+      "real_time_sync": true,
+      "backup_frequency": "hourly",
+      "data_validation": true,
+      "error_handling": "log_and_alert",
+      "api_rate_limits": "respect_all"
+    }
+  },
+  "integrations_required": [
+    "E-commerce Platform (Shopify/WooCommerce)",
+    "POS System",
+    "Accounting Software (QuickBooks/Xero)",
+    "Warehouse Management System",
+    "Supplier EDI Systems",
+    "Shipping Providers"
+  ],
+  "estimated_setup_time": "4-7 business days",
+  "complexity": "high"
+}

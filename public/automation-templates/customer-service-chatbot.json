@@ -1,0 +1,137 @@
+{
+  "automation_name": "Customer Service Chatbot",
+  "description": "24/7 automated customer support with FAQ responses, escalation to human agents, and multi-platform support",
+  "version": "1.0",
+  "triggers": [
+    {
+      "type": "webhook",
+      "name": "incoming_message",
+      "description": "Triggered when a customer sends a message",
+      "required_fields": ["message", "customer_id", "platform"]
+    },
+    {
+      "type": "schedule",
+      "name": "follow_up_check",
+      "description": "Check for unresolved tickets every 30 minutes",
+      "interval": "30_minutes"
+    }
+  ],
+  "actions": [
+    {
+      "id": "analyze_message",
+      "type": "text_analysis",
+      "description": "Analyze customer message intent and sentiment",
+      "config": {
+        "ai_model": "gpt-3.5-turbo",
+        "prompt": "Analyze this customer message for intent and sentiment: {message}. Categorize as: support, sales, complaint, compliment, or other.",
+        "response_format": "json"
+      }
+    },
+    {
+      "id": "check_faq",
+      "type": "database_lookup",
+      "description": "Search FAQ database for relevant answers",
+      "config": {
+        "database": "faq_knowledge_base",
+        "search_fields": ["question", "keywords", "category"],
+        "similarity_threshold": 0.8
+      }
+    },
+    {
+      "id": "send_auto_response",
+      "type": "message_send",
+      "description": "Send automated response to customer",
+      "config": {
+        "platforms": ["website_chat", "facebook", "instagram", "whatsapp"],
+        "personalization": true,
+        "include_followup_options": true
+      }
+    },
+    {
+      "id": "escalate_to_human",
+      "type": "notification",
+      "description": "Alert human agent for complex issues",
+      "config": {
+        "notification_channels": ["slack", "email", "sms"],
+        "priority_levels": ["low", "medium", "high", "urgent"],
+        "include_conversation_history": true
+      }
+    },
+    {
+      "id": "update_crm",
+      "type": "crm_update",
+      "description": "Update customer record with interaction details",
+      "config": {
+        "crm_platform": "salesforce",
+        "fields_to_update": ["last_contact", "interaction_type", "satisfaction_score", "issue_status"]
+      }
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "analyze_message",
+      "conditions": {
+        "if": "trigger.type == 'incoming_message'"
+      }
+    },
+    {
+      "step": 2,
+      "action": "check_faq",
+      "conditions": {
+        "if": "analyze_message.intent in ['support', 'other']"
+      }
+    },
+    {
+      "step": 3,
+      "action": "send_auto_response",
+      "conditions": {
+        "if": "check_faq.confidence > 0.8"
+      }
+    },
+    {
+      "step": 4,
+      "action": "escalate_to_human",
+      "conditions": {
+        "if": "check_faq.confidence < 0.8 OR analyze_message.sentiment == 'negative'"
+      }
+    },
+    {
+      "step": 5,
+      "action": "update_crm",
+      "conditions": {
+        "always": true
+      }
+    }
+  ],
+  "settings": {
+    "business_hours": {
+      "timezone": "UTC",
+      "monday": "09:00-17:00",
+      "tuesday": "09:00-17:00", 
+      "wednesday": "09:00-17:00",
+      "thursday": "09:00-17:00",
+      "friday": "09:00-17:00",
+      "saturday": "10:00-14:00",
+      "sunday": "closed"
+    },
+    "escalation_rules": {
+      "auto_escalate_after_minutes": 15,
+      "keywords_for_immediate_escalation": ["refund", "cancel", "angry", "manager", "legal"],
+      "sentiment_threshold": -0.5
+    },
+    "response_settings": {
+      "max_response_time_seconds": 5,
+      "include_typing_indicator": true,
+      "add_human_touch": true
+    }
+  },
+  "integrations_required": [
+    "OpenAI API",
+    "CRM (Salesforce/HubSpot)",
+    "Messaging platforms APIs",
+    "Knowledge base database"
+  ],
+  "estimated_setup_time": "3-5 business days",
+  "complexity": "medium"
+}
