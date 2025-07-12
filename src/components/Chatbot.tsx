@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageCircle, Send, X, Bot, User, Minimize2, Circle, Copy, DollarSign, Gift, Calendar, HelpCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -357,18 +358,18 @@ What specific area interests you most?`;
     return (
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3">
         {/* Attention-grabbing text */}
-        <div className="bg-gradient-to-r from-[#1a1a2e] to-[#0f0f1e] backdrop-blur-sm border border-[#0066FF]/20 rounded-lg px-4 py-2 shadow-lg animate-pulse">
+        <div className="bg-gradient-to-r from-[#1a1a2e] to-[#0f0f1e] backdrop-blur-sm border border-[#0066FF]/20 rounded-lg px-4 py-2 shadow-lg transform transition-all duration-500 hover:scale-105">
           <p className="text-sm font-medium text-white">💬 Got automation questions?</p>
           <p className="text-xs text-gray-300">Ask our AI assistant instantly!</p>
         </div>
         
         <Button
           onClick={handleOpen}
-          className="h-16 w-16 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-[#0052CC] hover:to-[#0066FF] shadow-lg hover:shadow-xl transition-all duration-300 group relative animate-pulse"
+          className="h-16 w-16 rounded-full bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-[#0052CC] hover:to-[#0066FF] shadow-lg hover:shadow-xl transition-all duration-300 group relative hover:scale-110"
         >
           <MessageCircle className="h-7 w-7 group-hover:scale-110 transition-transform duration-300 text-white" />
-          {/* Pulsing indicator */}
-          <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#00FF88] rounded-full animate-ping"></div>
+          {/* Smooth pulsing indicator */}
+          <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#00FF88] rounded-full animate-ping opacity-75"></div>
           <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#00FF88] rounded-full"></div>
         </Button>
       </div>
@@ -386,7 +387,7 @@ What specific area interests you most?`;
       />
       
       {/* Chat Modal */}
-      <div className={`fixed z-50 transition-all duration-500 ease-out ${
+      <div className={`fixed z-50 transition-all duration-700 ease-in-out ${
         isExpanded 
           ? 'bottom-6 right-6 w-[500px] h-[700px] md:w-[500px] md:h-[700px]' 
           : 'bottom-6 right-6 w-16 h-16'
@@ -394,10 +395,10 @@ What specific area interests you most?`;
         // Mobile responsive - full screen on small devices
         isExpanded ? 'max-md:inset-4 max-md:w-auto max-md:h-auto' : ''
       }`}>
-        <Card className={`h-full flex flex-col transition-all duration-500 ${
+        <Card className={`h-full flex flex-col transition-all duration-700 ease-in-out ${
           isExpanded 
-            ? 'bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1e] border-[#0066FF]/30 shadow-2xl rounded-[20px] scale-100 opacity-100' 
-            : 'bg-[#0066FF] scale-0 opacity-0 rounded-full'
+            ? 'bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1e] border-[#0066FF]/30 shadow-2xl rounded-[20px] scale-100 opacity-100 transform' 
+            : 'bg-[#0066FF] scale-0 opacity-0 rounded-full transform'
         }`}>
           {isExpanded && (
             <>
@@ -438,7 +439,8 @@ What specific area interests you most?`;
 
               <CardContent className="flex-1 flex flex-col p-0">
                 {/* Messages area */}
-                <div className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth">
+                <ScrollArea className="flex-1 px-6">
+                  <div className="py-6 space-y-4">
                   {messages.map((message, index) => (
                     <div
                       key={message.id}
@@ -496,8 +498,9 @@ What specific area interests you most?`;
                       </div>
                     </div>
                   )}
-                  <div ref={messagesEndRef} />
-                </div>
+                    <div ref={messagesEndRef} />
+                  </div>
+                </ScrollArea>
 
                 {/* Quick Action Buttons */}
                 <div className="px-6 py-4 border-t border-gray-600/30">
